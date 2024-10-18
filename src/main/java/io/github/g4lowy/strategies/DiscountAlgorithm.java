@@ -1,6 +1,6 @@
 package io.github.g4lowy.strategies;
 
-import io.github.g4lowy.model.Item;
+import io.github.g4lowy.domain.Item;
 
 import java.util.List;
 import java.util.Map;
