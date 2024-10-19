@@ -1,6 +1,8 @@
 package io.github.g4lowy.controller;
 
+import io.github.g4lowy.domain.Discount;
 import io.github.g4lowy.domain.DomainValidationException;
+import io.github.g4lowy.dto.Data;
 import io.github.g4lowy.service.DiscountCalculationService;
 import io.github.g4lowy.view.DiscountCalculationView;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import io.github.g4lowy.domain.Item;
 
@@ -18,38 +21,35 @@ public class DiscountCalculationController {
     private final DiscountCalculationView view;
 
 
-    private static Optional<Item> makeItem(String key, int value){
-        if(value > 0 && !key.isBlank() && !key.isEmpty())
-            return Optional.of(new Item(key, value));
-        else
-            return Optional.empty();
-    }
 
     public void run() throws DomainValidationException {
 
-        int discount = view.getDiscount();
-        // check if discount is positive
-        if(discount <= 0)
-            throw new DomainValidationException("Negative discount");
+        Data data = view.getData();
 
-        // check items
-        Map<String, Integer> viewItems = view.getProducts();
+        if(data == null || data.items() == null)
+            throw new DomainValidationException("Data.items is null");
 
 
-        List<Item> items =
-                viewItems.entrySet()
+        Optional<Discount> discountOps = Discount.of(data.discount());
+
+        List<Optional<Item>> itemsOps =
+                data.items()
+                        .entrySet()
                         .stream()
-                        .map(entry -> makeItem(entry.getKey(), entry.getValue()))
-                        .filter(Optional::isPresent)
-                        .map(Optional::get)
+                        .map(entry -> Item.of(entry.getKey(), entry.getValue()))
                         .toList();
 
-        if(viewItems.size() != items.size())
-            throw new DomainValidationException("Provided items violates domain constraints");
+        if(discountOps.isEmpty() || itemsOps.stream().filter(Optional::isPresent).toList().size() != data.items().size())
+            throw new DomainValidationException("Provided data violates domain constraints");
+        else{
+            Discount discount = discountOps.get();
+            List<Item> items = itemsOps.stream().filter(Optional::isPresent).map(Optional::get).toList();
 
-        Map<String, Integer> discounts = discountCalculationService.getDiscounts(items, discount);
+            Map<String, Integer> discounts = discountCalculationService.getDiscounts(items, discount);
 
-        view.showCalculatedDiscounts(discounts);
+            view.showCalculatedDiscounts(discounts);
+        }
+
 
     }
 
