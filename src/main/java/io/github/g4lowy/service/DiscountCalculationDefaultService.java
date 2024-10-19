@@ -1,5 +1,6 @@
 package io.github.g4lowy.service;
 
+import io.github.g4lowy.domain.Discount;
 import io.github.g4lowy.strategies.DiscountAlgorithm;
 import io.github.g4lowy.strategies.DiscountStrategy;
 import io.github.g4lowy.domain.Item;
@@ -21,11 +22,11 @@ public class DiscountCalculationDefaultService implements DiscountCalculationSer
     }
 
 
-    public Map<String, Integer> getDiscounts(List<Item> items, int discount){
+    public Map<String, Integer> getDiscounts(List<Item> items, Discount discount){
         return algorithms.get(DEFAULT_STRATEGY).calculate(items, discount);
     }
 
-    public Map<String, Integer> getDiscounts(List<Item> items, int discount, DiscountStrategy discountStrategy){
+    public Map<String, Integer> getDiscounts(List<Item> items, Discount discount, DiscountStrategy discountStrategy){
         return algorithms.get(discountStrategy).calculate(items, discount);
     }
 }
