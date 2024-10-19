@@ -21,11 +21,11 @@ public class DiscountCalculationDefaultService implements DiscountCalculationSer
         algorithms.put(DiscountStrategy.PROPORTIONAL, new ProportionalRestForLastDiscount());
     }
 
-
+    @Override
     public Map<String, Integer> getDiscounts(List<Item> items, Discount discount){
         return algorithms.get(DEFAULT_STRATEGY).calculate(items, discount);
     }
-
+    @Override
     public Map<String, Integer> getDiscounts(List<Item> items, Discount discount, DiscountStrategy discountStrategy){
         return algorithms.get(discountStrategy).calculate(items, discount);
     }
