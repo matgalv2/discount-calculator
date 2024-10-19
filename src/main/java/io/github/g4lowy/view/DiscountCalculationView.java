@@ -1,11 +1,12 @@
 package io.github.g4lowy.view;
 
+import io.github.g4lowy.dto.Data;
+
 import java.util.Map;
 
 public interface DiscountCalculationView {
-    int getDiscount();
-    Map<String, Integer> getProducts();
 
-    void reset();
+    Data getData();
+
     void showCalculatedDiscounts(Map<String, Integer> discounts);
 }
