@@ -46,10 +46,7 @@ public class DiscountCalculationController {
 
             Map<String, Integer> discounts = discountCalculationService.getDiscounts(items, discount);
 
-            view.showCalculatedDiscounts(discounts);
+            view.showResult(discounts);
         }
-
-
     }
-
 }
