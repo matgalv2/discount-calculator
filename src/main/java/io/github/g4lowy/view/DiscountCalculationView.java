@@ -8,5 +8,5 @@ public interface DiscountCalculationView {
 
     Data getData();
 
-    void showCalculatedDiscounts(Map<String, Integer> discounts);
+    void showResult(Map<String, Integer> discounts);
 }

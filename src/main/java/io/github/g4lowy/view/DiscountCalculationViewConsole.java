@@ -22,7 +22,7 @@ public class DiscountCalculationViewConsole implements DiscountCalculationView {
     }
 
     @Override
-    public void showCalculatedDiscounts(Map<String, Integer> discounts) {
+    public void showResult(Map<String, Integer> discounts) {
         System.out.println("Discounts:");
         discounts.forEach((k, v) -> System.out.println(k + ": " + v));
     }
