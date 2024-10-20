@@ -8,8 +8,8 @@ MVC pattern has been utilized to ensure that all components can be developed ind
 * Controller - represented as DiscountCalculationController.
 
 ## Design aspects
-* The exercise specified that there would be at most 5 products, but utilized algorithm is more generic and allows calculating discount for unlimited number of items.
-* Application requires that passed data from view is ordered due to ensure that the rest of unused discount is intended for the last element.
+* The exercise specified that there would be at most 5 products, but utilized algorithm is more generic and allows calculating discount for unlimited number of products.
+* Application requires that passed data from view is ordered to ensure that the rest of unused discount is intended for the last element.
 * Domain constraints:
   * Discount represents a positive integer.
   * Item need product name and price, where price is also positive integer.
