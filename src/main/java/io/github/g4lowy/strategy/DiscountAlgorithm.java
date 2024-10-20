@@ -1,4 +1,4 @@
-package io.github.g4lowy.strategies;
+package io.github.g4lowy.strategy;
 
 import io.github.g4lowy.domain.Discount;
 import io.github.g4lowy.domain.Item;
