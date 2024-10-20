@@ -1,6 +1,6 @@
 package io.github.g4lowy.view;
 
-import io.github.g4lowy.dto.Data;
+import io.github.g4lowy.dto.DiscountRequestData;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -20,9 +20,9 @@ public class DiscountCalculationViewConsole implements DiscountCalculationView {
     }
 
     @Override
-    public Data getData() {
+    public DiscountRequestData getData() {
         int discount = DISCOUNTS[new Random().nextInt(DISCOUNTS.length)];
-        return new Data(discount, ITEMS_PRICE);
+        return new DiscountRequestData(discount, ITEMS_PRICE);
     }
 
     @Override

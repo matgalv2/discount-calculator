@@ -2,7 +2,7 @@ package io.github.g4lowy.service;
 
 import io.github.g4lowy.domain.Discount;
 import io.github.g4lowy.domain.Product;
-import io.github.g4lowy.dto.Data;
+import io.github.g4lowy.dto.DiscountRequestData;
 import io.github.g4lowy.error.DomainValidationException;
 import io.github.g4lowy.strategy.DiscountAlgorithm;
 import io.github.g4lowy.strategy.DiscountStrategy;
@@ -25,21 +25,21 @@ public class DiscountCalculationDefaultService implements DiscountCalculationSer
 
 
     @Override
-    public Map<String, Integer> getDiscounts(Data data, DiscountStrategy discountStrategy) throws DomainValidationException {
+    public Map<String, Integer> getDiscounts(DiscountRequestData discountRequestData, DiscountStrategy discountStrategy) throws DomainValidationException {
 
-        if(data == null || data.items() == null)
+        if(discountRequestData == null || discountRequestData.items() == null)
             throw new DomainValidationException("Data.items is null");
 
-        Optional<Discount> discountOpt = Discount.of(data.discount());
+        Optional<Discount> discountOpt = Discount.of(discountRequestData.discount());
 
         List<Optional<Product>> itemsOpt =
-                data.items()
+                discountRequestData.items()
                         .entrySet()
                         .stream()
                         .map(entry -> Product.of(entry.getKey(), entry.getValue()))
                         .toList();
 
-        if(discountOpt.isEmpty() || itemsOpt.stream().filter(Optional::isPresent).toList().size() != data.items().size())
+        if(discountOpt.isEmpty() || itemsOpt.stream().filter(Optional::isPresent).toList().size() != discountRequestData.items().size())
             throw new DomainValidationException("Provided data violates domain constraints");
         else{
             Discount discount = discountOpt.get();
@@ -50,7 +50,7 @@ public class DiscountCalculationDefaultService implements DiscountCalculationSer
     }
 
     @Override
-    public Map<String, Integer> getDiscounts(Data data) throws DomainValidationException {
-        return getDiscounts(data, DEFAULT_STRATEGY);
+    public Map<String, Integer> getDiscounts(DiscountRequestData discountRequestData) throws DomainValidationException {
+        return getDiscounts(discountRequestData, DEFAULT_STRATEGY);
     }
 }
