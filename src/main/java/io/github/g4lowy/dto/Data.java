@@ -1,5 +1,5 @@
 package io.github.g4lowy.dto;
 
-import java.util.Map;
+import java.util.LinkedHashMap;
 
-public record Data(int discount, Map<String, Integer> items){}
+public record Data(int discount, LinkedHashMap<String, Integer> items){}
