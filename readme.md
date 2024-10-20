@@ -10,6 +10,7 @@ MVC pattern has been utilized to ensure that all components can be developed ind
 ## Design aspects
 * The exercise specified that there would be at most 5 products, but utilized algorithm is more generic and allows calculating discount for unlimited number of products.
 * Application requires that passed data from view is ordered to ensure that the rest of unused discount is intended for the last element.
+* The discount and products' prices are integers so every calculated value is rounded down. If there was a need to represents values as floating point number it would be easy to implement due to a fact that in case of currencies only first and second decimal places are important. Everything further must be rounded down. So it all comes to manipulating comma place.
 * Domain constraints:
   * Discount represents a positive integer.
   * Item need product name and price, where price is also positive integer.
