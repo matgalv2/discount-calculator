@@ -1,7 +1,7 @@
 package io.github.g4lowy.strategy;
 
 import io.github.g4lowy.domain.Discount;
-import io.github.g4lowy.domain.Item;
+import io.github.g4lowy.domain.Product;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -15,11 +15,11 @@ public class ProportionalRestForLastDiscountTest {
 
     @Test
     public void exerciseTest() {
-        List<Item> list =
+        List<Product> list =
                 Map.of("Product1", 500, "Product2", 1500)
                     .entrySet()
                     .stream()
-                    .map(entry -> Item.of(entry.getKey(), entry.getValue()).get())
+                    .map(entry -> Product.of(entry.getKey(), entry.getValue()).get())
                     .toList();
 
         Discount discount = Discount.of(100).get();
@@ -36,7 +36,7 @@ public class ProportionalRestForLastDiscountTest {
     @Test
     public void proportionalSplit() {
 
-        List<Item> list =
+        List<Product> list =
                 Map.of(
                         "Product1", 2,
                         "Product2", 4,
@@ -44,7 +44,7 @@ public class ProportionalRestForLastDiscountTest {
                         "Product4", 8)
                         .entrySet()
                         .stream()
-                        .map(entry -> Item.of(entry.getKey(), entry.getValue()).get())
+                        .map(entry -> Product.of(entry.getKey(), entry.getValue()).get())
                         .toList();
 
         Discount discount = Discount.of(10).get();
@@ -68,11 +68,11 @@ public class ProportionalRestForLastDiscountTest {
         itemsPrices.put("Product3", 1);
         itemsPrices.put("Product4", 5);
 
-        List<Item> list =
+        List<Product> list =
                 itemsPrices
                         .entrySet()
                         .stream()
-                        .map(entry -> Item.of(entry.getKey(), entry.getValue()).get())
+                        .map(entry -> Product.of(entry.getKey(), entry.getValue()).get())
                         .toList();
 
 
@@ -99,11 +99,11 @@ public class ProportionalRestForLastDiscountTest {
         itemsPrices.put("Product3", 1);
         itemsPrices.put("Product4", 1);
 
-        List<Item> list =
+        List<Product> list =
                 itemsPrices
                         .entrySet()
                         .stream()
-                        .map(entry -> Item.of(entry.getKey(), entry.getValue()).get())
+                        .map(entry -> Product.of(entry.getKey(), entry.getValue()).get())
                         .toList();
 
 
@@ -123,7 +123,7 @@ public class ProportionalRestForLastDiscountTest {
     @Test
     public void discountEqualToTotalPrice() {
 
-        List<Item> list =
+        List<Product> list =
                 Map.of(
                                 "Product1", 2,
                                 "Product2", 4,
@@ -131,7 +131,7 @@ public class ProportionalRestForLastDiscountTest {
                                 "Product4", 8)
                         .entrySet()
                         .stream()
-                        .map(entry -> Item.of(entry.getKey(), entry.getValue()).get())
+                        .map(entry -> Product.of(entry.getKey(), entry.getValue()).get())
                         .toList();
 
         Discount discount = Discount.of(20).get();
@@ -149,7 +149,7 @@ public class ProportionalRestForLastDiscountTest {
     @Test
     public void discountHigherThanTotalPrice() {
 
-        List<Item> list =
+        List<Product> list =
                 Map.of(
                                 "Product1", 2,
                                 "Product2", 4,
@@ -157,7 +157,7 @@ public class ProportionalRestForLastDiscountTest {
                                 "Product4", 8)
                         .entrySet()
                         .stream()
-                        .map(entry -> Item.of(entry.getKey(), entry.getValue()).get())
+                        .map(entry -> Product.of(entry.getKey(), entry.getValue()).get())
                         .toList();
 
         Discount discount = Discount.of(21).get();

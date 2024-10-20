@@ -1,15 +1,15 @@
 package io.github.g4lowy.strategy;
 
 import io.github.g4lowy.domain.Discount;
-import io.github.g4lowy.domain.Item;
+import io.github.g4lowy.domain.Product;
 
 import java.util.*;
 
 final public class ProportionalRestForLastDiscount implements DiscountAlgorithm {
     @Override
-    public Map<String, Integer> calculate(List<Item> items, Discount discount) {
+    public Map<String, Integer> calculate(List<Product> products, Discount discount) {
 
-        double totalCost = items.stream().map(Item::getValue).reduce(0, Integer::sum);
+        double totalCost = products.stream().map(Product::getValue).reduce(0, Integer::sum);
         int restDiscount = discount.getValue();
 
         Map<String, Integer> discounts = new HashMap<>();
@@ -18,42 +18,42 @@ final public class ProportionalRestForLastDiscount implements DiscountAlgorithm 
         if (discount.getValue() >= totalCost ) {
             if(discount.getValue() > totalCost )
                 System.out.println("Unused discount: " + (discount.getValue() - totalCost));
-            items.forEach(item -> discounts.put(item.getKey(), item.getValue()));
+            products.forEach(item -> discounts.put(item.getKey(), item.getValue()));
             return discounts;
         }
 
-        for(Iterator<Item> iterator = items.iterator(); iterator.hasNext(); ) {
-            Item item = iterator.next();
-            int discountForCurrentProduct = (int) (item.getValue() / totalCost * discount.getValue());
+        for(Iterator<Product> iterator = products.iterator(); iterator.hasNext(); ) {
+            Product product = iterator.next();
+            int discountForCurrentProduct = (int) (product.getValue() / totalCost * discount.getValue());
 
             if(iterator.hasNext()){
                 restDiscount -= discountForCurrentProduct;
             }
             else{
                 // if restDiscount is higher than price of last item it should be allocated to the previous ones
-                if(restDiscount > item.getValue()){
-                    discounts.put(item.getKey(), 0);
-                    splitRest(items, discounts, restDiscount);
+                if(restDiscount > product.getValue()){
+                    discounts.put(product.getKey(), 0);
+                    splitRest(products, discounts, restDiscount);
                     return discounts;
                 }
                 else
                     discountForCurrentProduct = restDiscount;
             }
-            discounts.put(item.getKey(), discountForCurrentProduct);
+            discounts.put(product.getKey(), discountForCurrentProduct);
         }
         return discounts;
     }
 
-    private void splitRest(List<Item> items, Map<String, Integer> discounts, int restDiscount) {
+    private void splitRest(List<Product> products, Map<String, Integer> discounts, int restDiscount) {
         boolean finished = false;
-        for(Iterator<Item> it = items.reversed().iterator(); it.hasNext() && !finished; ) {
-            Item item = it.next();
-            int currentItemDiscount = discounts.get(item.getKey());
+        for(Iterator<Product> it = products.reversed().iterator(); it.hasNext() && !finished; ) {
+            Product product = it.next();
+            int currentItemDiscount = discounts.get(product.getKey());
 
-            if(currentItemDiscount < item.getValue()) {
-                int additionalDiscount = calculateAdditionalDiscountForProduct(currentItemDiscount, item.getValue(), restDiscount);
+            if(currentItemDiscount < product.getValue()) {
+                int additionalDiscount = calculateAdditionalDiscountForProduct(currentItemDiscount, product.getValue(), restDiscount);
 
-                discounts.put(item.getKey(), currentItemDiscount + additionalDiscount);
+                discounts.put(product.getKey(), currentItemDiscount + additionalDiscount);
                 restDiscount -= additionalDiscount;
             }
             if (restDiscount == 0)
