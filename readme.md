@@ -14,7 +14,7 @@ MVC pattern has been utilized to ensure that all components can be developed ind
   * Discount represents a positive integer.
   * Item need product name and price, where price is also positive integer.
 * Design patterns:
-  * Strategy - allows defining others discount calculation algorithms
+  * Strategy - allows defining and using other discount calculation algorithms
   * Iterator
 
 ## External libraries
