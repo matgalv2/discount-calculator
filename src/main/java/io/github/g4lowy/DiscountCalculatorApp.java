@@ -2,8 +2,8 @@ package io.github.g4lowy;
 
 
 import io.github.g4lowy.controller.DiscountCalculationController;
-import io.github.g4lowy.domain.DomainValidationException;
-import io.github.g4lowy.dto.Data;
+import io.github.g4lowy.error.DomainValidationException;
+import io.github.g4lowy.dto.DiscountRequestData;
 import io.github.g4lowy.service.DiscountCalculationDefaultService;
 import io.github.g4lowy.service.DiscountCalculationService;
 import io.github.g4lowy.view.DiscountCalculationView;
@@ -18,8 +18,8 @@ public class DiscountCalculatorApp {
         DiscountCalculationController controller = new DiscountCalculationController(service);
 
         try {
-            Data data = view.getData();
-            Map<String, Integer> result = controller.calculateDiscounts(data);
+            DiscountRequestData discountRequestData = view.getData();
+            Map<String, Integer> result = controller.calculateDiscounts(discountRequestData);
 
             view.showResult(result);
         }
