@@ -16,7 +16,7 @@ public class Item {
     }
 
     public static Optional<Item> of(String key, int value) {
-        if(value > 0)
+        if(value > 0 && key != null && !key.isBlank() && !key.isEmpty())
             return Optional.of(new Item(key, value));
         else
             return Optional.empty();
