@@ -1,10 +1,10 @@
 package io.github.g4lowy.service;
 
 import io.github.g4lowy.domain.Discount;
-import io.github.g4lowy.strategies.DiscountAlgorithm;
-import io.github.g4lowy.strategies.DiscountStrategy;
+import io.github.g4lowy.strategy.DiscountAlgorithm;
+import io.github.g4lowy.strategy.DiscountStrategy;
 import io.github.g4lowy.domain.Item;
-import io.github.g4lowy.strategies.ProportionalRestForLastDiscount;
+import io.github.g4lowy.strategy.ProportionalRestForLastDiscount;
 
 import java.util.HashMap;
 import java.util.List;

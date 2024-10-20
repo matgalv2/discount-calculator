@@ -2,7 +2,7 @@ package io.github.g4lowy.service;
 
 import io.github.g4lowy.domain.Discount;
 import io.github.g4lowy.domain.Item;
-import io.github.g4lowy.strategies.DiscountStrategy;
+import io.github.g4lowy.strategy.DiscountStrategy;
 
 import java.util.List;
 import java.util.Map;
