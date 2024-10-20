@@ -1,4 +1,4 @@
-package io.github.g4lowy.domain;
+package io.github.g4lowy.error;
 
 
 public class DomainValidationException extends Exception{
