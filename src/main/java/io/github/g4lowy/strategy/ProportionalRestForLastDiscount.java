@@ -18,9 +18,7 @@ final public class ProportionalRestForLastDiscount implements DiscountAlgorithm 
         if (discount.getValue() >= totalCost ) {
             if(discount.getValue() > totalCost )
                 System.out.println("Unused discount: " + (discount.getValue() - totalCost));
-            items.forEach(item -> {
-                discounts.put(item.getKey(), item.getValue());
-            });
+            items.forEach(item -> discounts.put(item.getKey(), item.getValue()));
             return discounts;
         }
 
