@@ -12,7 +12,6 @@ public class DiscountCalculationController {
 
     private final DiscountCalculationService discountCalculationService;
 
-    // wyniesienie walidacji
     public Map<String, Integer> calculateDiscounts(Data data) throws DomainValidationException {
         return discountCalculationService.getDiscounts(data);
     }

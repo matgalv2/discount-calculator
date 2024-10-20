@@ -5,7 +5,6 @@ import lombok.Getter;
 
 import java.util.Optional;
 
-// lepsza nazwa
 @Getter
 public class Product {
     private final String key;
